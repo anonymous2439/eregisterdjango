@@ -34,16 +34,16 @@ class UserRole(models.Model):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(max_length=30, unique=True)
     first_name = models.CharField(max_length=50)
     middle_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    email = models.CharField(max_length=30, unique=True)
+    email = models.EmailField(max_length=30, unique=True)
     contact_no = models.CharField(max_length=20, blank=True)
-    role = models.ForeignKey(UserRole, on_delete=models.CASCADE, default=1)
+    role = models.ForeignKey(UserRole, on_delete=models.CASCADE, null=True, default=None)
+    qr_code = models.ImageField(upload_to='qr_code', null=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     objects = UserManager()
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
