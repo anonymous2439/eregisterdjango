@@ -8,8 +8,4 @@ class Home(View):
     name = 'events/index.html'
 
     def get(self, request):
-        user = User.objects.get(pk=4)
-        context = {
-            'user': user,
-        }
-        return render(request, self.name, context)
+        return render(request, self.name)

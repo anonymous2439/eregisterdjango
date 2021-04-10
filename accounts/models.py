@@ -1,3 +1,5 @@
+import hashlib
+
 from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser, PermissionsMixin
@@ -53,11 +55,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     def save(self, *args, **kwargs):
-        qrcode_img = qrcode.make(self.email)
+        qrcode_img = qrcode.make(f'{hashlib.md5(str(self.email).encode("utf-8")).hexdigest()}')
         canvas = Image.new('RGB', (qrcode_img.pixel_size, qrcode_img.pixel_size), 'white')
         draw = ImageDraw.Draw(canvas)
         canvas.paste(qrcode_img)
-        file_name = f'qr_code-{self.email}.png'
+        file_name = f'{hashlib.md5(str(self.email).encode("utf-8")).hexdigest()}.png'
         buffer = BytesIO()
         canvas.save(buffer, 'PNG')
         self.qr_code.save(file_name, File(buffer), save=False)

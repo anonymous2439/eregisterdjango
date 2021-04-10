@@ -20,7 +20,8 @@ from django.urls import path, include
 from eregister import settings
 
 urlpatterns = [
-    path('', include('events.urls')),
+    path('events/', include('events.urls')),
+    path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
 ]
 
