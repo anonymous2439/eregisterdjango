@@ -1,9 +1,11 @@
 {% extends 'events/base.html' %}
 
 {% block content %}
-    <h4>EVENTS INDEX</h4>
-    {% for event in events %}
-        {{ event.name }}<br>
-    {% endfor %}
-    <a href="#">Add</a>
+    <div class="container">
+        <h4>EVENTS</h4>
+        <a href="{% url 'events-add' %}">Add</a>
+        {% for event in events %}
+            <br>{{ event.name }}
+        {% endfor %}
+    </div>
 {% endblock %}

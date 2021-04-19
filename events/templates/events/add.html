@@ -1,0 +1,23 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h4>ADD EVENT</h4>
+        <div><a href="{% url 'events-home' %}">Events</a> / Add</div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-12">
+                    <input placeholder="Event Name" name="name">
+                    <input placeholder="Venue" name="venue">
+                    <select name="event-type">
+                        {% for eventType in eventTypes%}
+                            <option value="{{ eventType.pk }}">{{ eventType.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
