@@ -11,8 +11,14 @@
     {% block links %} {% endblock %}
 </head>
 <body>
-    {% block content %} {% endblock %}
-
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% block content %} {% endblock %}
+    </div>
     <script src="{% static 'js/jquery/jquery-3.5.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/bootstrap/popper.min.js' %}"></script>
