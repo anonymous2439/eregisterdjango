@@ -1,5 +1,7 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.utils.decorators import method_decorator
 from django.views import View
 
 from accounts.models import User
@@ -9,6 +11,7 @@ from events.models import Event, EventType
 class Home(View):
     name = 'events/index.html'
 
+    @method_decorator(login_required)
     def get(self, request):
         context = {
             'events': Event.objects.all(),

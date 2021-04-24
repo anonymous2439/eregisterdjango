@@ -1,6 +1,8 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout as auth_logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.utils.decorators import method_decorator
 from django.views import View
 
 from accounts.models import User
@@ -9,8 +11,9 @@ from accounts.models import User
 class Profile(View):
     name = 'accounts/profile.html'
 
+    @method_decorator(login_required)
     def get(self, request):
-        user = User.objects.get(pk=1)
+        user = request.user
         context = {
             'user': user,
         }
@@ -32,7 +35,7 @@ class Login(View):
             messages.success(request, f'Welcome {user.email}')
             if request.POST.get('next'):
                 return redirect(request.POST.get('next'))
-            return redirect('/events/')
+            return redirect('events-home')
         else:
             messages.error(request, 'Invalid Username/Password')
         return render(request, self.name)
@@ -47,3 +50,9 @@ class ManageAccounts(View):
             'users': users,
         }
         return render(request, self.name, context)
+
+
+def logout(request):
+    auth_logout(request)
+    messages.success(request, 'You are now logged out from the system...')
+    return redirect('/')
