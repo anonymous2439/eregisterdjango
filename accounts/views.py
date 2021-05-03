@@ -1,6 +1,12 @@
+import hashlib
+from io import BytesIO
+
+import qrcode
+from PIL import Image, ImageDraw
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from django.core.files import File
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
@@ -74,6 +80,15 @@ class ManageAccounts(View):
                 role=UserRole.objects.get(pk=int(request.POST.get('role'))),
             )
             user.set_password('password')
+            qrcode_img = qrcode.make(f'{hashlib.md5(str(request.POST.get("email")).encode("utf-8")).hexdigest()}')
+            canvas = Image.new('RGB', (qrcode_img.pixel_size, qrcode_img.pixel_size), 'white')
+            draw = ImageDraw.Draw(canvas)
+            canvas.paste(qrcode_img)
+            file_name = f'{hashlib.md5(str(request.POST.get("email")).encode("utf-8")).hexdigest()}.png'
+            buffer = BytesIO()
+            canvas.save(buffer, 'PNG')
+            user.qr_code.save(file_name, File(buffer), save=False)
+            canvas.close()
             user.save()
             return redirect('accounts-manage')
 
