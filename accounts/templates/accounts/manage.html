@@ -1,6 +1,7 @@
 {% extends 'events/base.html' %}
 
 {% block content %}
+<div class="wrapper">
 Manage Accounts
 <div>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-modal">Add</button>
@@ -26,7 +27,7 @@ Manage Accounts
         {% endfor %}
     </tbody>
 </table>
-
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="add-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

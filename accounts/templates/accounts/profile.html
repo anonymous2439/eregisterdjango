@@ -1,10 +1,12 @@
 {% extends 'events/base.html' %}
 
 {% block content %}
+<div class="wrapper">
 <img src="/media/{{ user.qr_code }}">
 <p>
     <b>Name:</b> {{ user.first_name }} {{ user.middle_name }} {{ user.last_name }}<br>
     <b>Contact Number:</b> {{ user.contact_no }}<br>
     <b>E-mail:</b> {{ user.email }}<br>
 </p>
+    </div>
 {% endblock %}

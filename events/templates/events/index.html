@@ -1,11 +1,30 @@
 {% extends 'events/base.html' %}
 
 {% block content %}
-    <div class="container">
+    <div class="wrapper">
         <h4>EVENTS</h4>
-        <a href="{% url 'events-add' %}">Add</a>
+        <a href="{% url 'events-add' %}" class="btn btn-primary">Add</a>
+        <table class="table">
         {% for event in events %}
-            <br>{{ event.name }}
+            <thead>
+                <tr>
+                    <th>Event Name</th>
+                    <th>Venue</th>
+                    <th>Organizer</th>
+                    <th>Event Type</th>
+                    <th>Date Created</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ event.name }}</td>
+                    <td>{{ event.venue }}</td>
+                    <td>{{ event.organizer }}</td>
+                    <td>{{ event.event_type }}</td>
+                    <td>{{ event.date_created }}</td>
+                </tr>
+            </tbody>
         {% endfor %}
+        </table>
     </div>
 {% endblock %}
