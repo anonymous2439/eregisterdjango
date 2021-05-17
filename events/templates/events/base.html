@@ -10,42 +10,34 @@
     <link rel="stylesheet" href="{% static 'css/sweetalert/sweetalert2.min.css' %}">
     <style>
         header{
-            color:white;
-        }
-        header div{
-            text-align: right;
             background-color: #800000;
+            padding:25px 0;
         }
-        header div a{
+        header a{
             color:white;
         }
-        #main-container{
-            padding-top:30px;
+        .wrapper{
+            width:1000px;
+            margin:auto;
         }
-        header div.container-fluid{
-            padding:30px;
-        }
-        #header-left{
-            font-weight:bold;
-        }
+        #header-left{display:inline-block;}
+        #header-right{float:right;}
     </style>
     {% block links %} {% endblock %}
 </head>
 <body>
     <header>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6 d-flex justify-content-start" id="header-left">
+        <div class="wrapper">
+                <div id="header-left">
                     <a href="{% url 'events-home' %}">E-REGISTER</a>
                 </div>
-                <div class="col-md-6" id="header-right">
+                <div id="header-right">
                     {% if user.is_authenticated %}
                         <a href="{% url 'accounts-manage' %}">Accounts</a> |
                         <a href="{% url 'accounts-profile' %}">Profile</a> |
                         <a href="{% url 'accounts-logout' %}">Logout</a>
                     {% endif %}
                 </div>
-            </div>
         </div>
     </header>
     <div class="container" id="main-container">
