@@ -77,7 +77,7 @@ Manage Accounts
           cancelButtonColor: '#d33',
           confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
-          if (result) {
+          if (result.value == true) {
 			$.ajax({
         	   	headers: { "X-CSRFToken": '{{ csrf_token }}' },
         	   	type: "post",
