@@ -1,9 +1,10 @@
 {% extends 'events/base.html' %}
 
+
 {% block content %}
     <div class="wrapper">
-        <h4>EVENTS</h4>
-        <a href="{% url 'events-add' %}" class="btn btn-primary">Add</a>
+        <div id="participant"><b>Participant:</b> {{ user.first_name }} {{ user.middle_name }} {{ user.last_name }}</div>
+        <h4>RUNNING EVENTS</h4>
         <table class="table">
             <thead>
                 <tr>

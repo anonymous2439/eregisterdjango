@@ -30,6 +30,7 @@ class UserManager(BaseUserManager):
         user.is_superuser = True
         user.role = UserRole.objects.get(pk=1)
         qrcode_img = qrcode.make(f'{hashlib.md5(str(email).encode("utf-8")).hexdigest()}')
+        user.qr_id = hashlib.md5(str(email).encode("utf-8")).hexdigest()
         canvas = Image.new('RGB', (qrcode_img.pixel_size, qrcode_img.pixel_size), 'white')
         draw = ImageDraw.Draw(canvas)
         canvas.paste(qrcode_img)
@@ -59,6 +60,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     contact_no = models.CharField(max_length=20, blank=True)
     role = models.ForeignKey(UserRole, on_delete=models.CASCADE, null=True, default=None, blank=True)
     qr_code = models.ImageField(upload_to='qr_code', null=True)
+    qr_id = models.CharField(max_length=50)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)

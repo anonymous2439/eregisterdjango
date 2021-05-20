@@ -8,13 +8,15 @@
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-12">
-                    <input placeholder="Event Name" name="name">
-                    <input placeholder="Venue" name="venue">
-                    <select name="event-type">
+                    <input placeholder="Event Name" name="name" class="form-control">
+                    <input placeholder="Venue" name="venue" class="form-control">
+                    <select name="event-type" class="form-control">
                         {% for eventType in eventTypes%}
                             <option value="{{ eventType.pk }}">{{ eventType.name }}</option>
                         {% endfor %}
                     </select>
+                    <label>Start Date and Time:</label><input type="datetime-local" class="form-control" name="start-date">
+                    <label>End Date and Time:</label><input type="datetime-local" class="form-control" name="end-date">
                     <button type="submit" class="btn btn-primary">Add</button>
                 </div>
             </div>

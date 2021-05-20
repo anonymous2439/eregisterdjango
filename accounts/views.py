@@ -13,6 +13,7 @@ from django.utils.decorators import method_decorator
 from django.views import View
 
 from accounts.models import User, UserRole
+from events.models import Link
 
 
 class Profile(View):
@@ -71,6 +72,7 @@ class ManageAccounts(View):
                 return JsonResponse({'success': 1})
             return JsonResponse({'success': 0})
         else:
+            home_url = Link.objects.get(name='home_url')
             user = User(
                 first_name=request.POST.get('fname'),
                 middle_name=request.POST.get('mname'),
@@ -80,7 +82,8 @@ class ManageAccounts(View):
                 role=UserRole.objects.get(pk=int(request.POST.get('role'))),
             )
             user.set_password('password')
-            qrcode_img = qrcode.make(f'{hashlib.md5(str(request.POST.get("email")).encode("utf-8")).hexdigest()}')
+            qrcode_img = qrcode.make(f'{home_url.url}attendance/{hashlib.md5(str(request.POST.get("email")).encode("utf-8")).hexdigest()}')
+            user.qr_id = hashlib.md5(str(request.POST.get("email")).encode("utf-8")).hexdigest()
             canvas = Image.new('RGB', (qrcode_img.pixel_size, qrcode_img.pixel_size), 'white')
             draw = ImageDraw.Draw(canvas)
             canvas.paste(qrcode_img)
