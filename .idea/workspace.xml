@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="be3e463f-f7dd-4773-8607-933b4708f677" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/templates/accounts/manage.html" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/templates/accounts/manage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/templates/accounts/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/templates/accounts/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/events/templates/events/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/events/templates/events/add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/events/templates/events/attendance.html" beforeDir="false" afterPath="$PROJECT_DIR$/events/templates/events/attendance.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/events/templates/events/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/events/templates/events/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/events/templates/events/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/events/templates/events/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ipams/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ipams/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ipams/records/templates/records/add_record/title_and_abstract.html" beforeDir="false" afterPath="$PROJECT_DIR$/../ipams/records/templates/records/add_record/title_and_abstract.html" afterDir="false" />
     </list>

@@ -2,11 +2,18 @@
 
 {% block content %}
 <div class="wrapper">
-<img src="/media/{{ user.qr_code }}">
-<p>
-    <b>Name:</b> {{ user.first_name }} {{ user.middle_name }} {{ user.last_name }}<br>
-    <b>Contact Number:</b> {{ user.contact_no }}<br>
-    <b>E-mail:</b> {{ user.email }}<br>
-</p>
+    <h4 class="page-title">Profile</h4>
+    <div id="profile-boxes">
+    <section>
+        <img src="/media/{{ user.qr_code }}">
+    </section>
+    <section>
+        <p>
+            <b>Name:</b> {{ user.first_name }} {{ user.middle_name }} {{ user.last_name }}<br>
+            <b>Contact Number:</b> {{ user.contact_no }}<br>
+            <b>E-mail:</b> {{ user.email }}<br>
+        </p>
+    </section>
     </div>
+</div>
 {% endblock %}

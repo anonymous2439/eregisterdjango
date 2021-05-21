@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="wrapper">
-        <h4>ADD EVENT</h4>
+        <h4 class="page-title">ADD EVENT</h4>
         <div><a href="{% url 'events-home' %}">Events</a> / Add</div>
         <form method="post">
             {% csrf_token %}

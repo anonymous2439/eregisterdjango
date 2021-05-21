@@ -15,7 +15,7 @@
             background-color: #fff;height:60px;border-bottom: 5px solid #800000;
         }
         header #header-left a{
-            color:white;display:block;
+            color:white;display:block;font-weight:700;
         }
         header a:hover{color:white;text-decoration:none;}
         header nav a:hover, header nav a:active{text-decoration:underline;}
@@ -31,6 +31,11 @@
 
         #participant{margin-bottom:25px;}
         div.alert{text-align:center;}
+
+        .page-title{background: #D4AF3740;font-weight: 700;color: #800000;padding: 15px 10px;text-align: center;}
+        #profile-boxes{display:flex;}
+            #profile-boxes section{flex:1;}
+            #profile-boxes section:last-child{padding-top:45px;}
     </style>
     {% block links %} {% endblock %}
 </head>
