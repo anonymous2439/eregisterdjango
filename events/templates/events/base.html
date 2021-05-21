@@ -10,23 +10,25 @@
     <link rel="stylesheet" href="{% static 'css/sweetalert/sweetalert2.min.css' %}">
     <style>
         header{
-            background-color: #800000;
-            padding:25px 0;
+            background-color: #fff;height:60px;border-bottom: 5px solid #800000;
         }
-        header a{
-            color:white;
+        header #header-left a{
+            color:white;display:block;
         }
         header a:hover{color:white;text-decoration:none;}
         header nav a:hover, header nav a:active{text-decoration:underline;}
         .wrapper{
             width:1000px;
-            margin:auto;
+            margin:auto;height:100%;
         }
-        #header-left{display:inline-block;}
-        #header-right{float:right;}
+        #header-left{display:inline-block;height:100%;width: 120px;text-align: center;line-height: 60px;background: #800000;}
+        #header-right{float:right; height: 100%;line-height: 60px;}
+        #header-right a{color:#800000;}
+
         #main-container{padding:25px 0;}
 
         #participant{margin-bottom:25px;}
+        div.alert{text-align:center;}
     </style>
     {% block links %} {% endblock %}
 </head>
@@ -50,7 +52,7 @@
     <div id="main-container">
         {% if messages %}
             {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                <div class="alert alert-{% if message.tags == 'error' %}danger {% else %}{{ message.tags }} {% endif %}">{{ message }}</div>
             {% endfor %}
         {% endif %}
         {% block content %} {% endblock %}

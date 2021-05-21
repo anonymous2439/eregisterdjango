@@ -41,8 +41,10 @@ class Login(View):
         if user:
             login(request, user)
             messages.success(request, f'Welcome {user.email}')
-            if request.POST.get('next'):
-                return redirect(request.POST.get('next'))
+            if request.GET.get('next'):
+                print(request.GET.get('next'))
+                return redirect(request.GET.get('next'))
+            print('home')
             return redirect('events-home')
         else:
             messages.error(request, 'Invalid Username/Password')
@@ -100,3 +102,7 @@ def logout(request):
     auth_logout(request)
     messages.success(request, 'You are now logged out from the system...')
     return redirect('/')
+
+
+def unauthorized(request):
+    return render(request, 'accounts/unauthorized.html')

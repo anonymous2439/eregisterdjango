@@ -1,0 +1,14 @@
+{% extends 'events/base.html' %}
+
+{% block links %}
+<style>
+    #unauthorized_page{width:100%;text-align:center;}
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="unauthorized_page">
+    <h1>Unauthorized Access</h1>
+    <a href="/">Go to Home</a> | <a href="{% url 'accounts-login' %}">Login</a>
+</div>
+{% endblock %}

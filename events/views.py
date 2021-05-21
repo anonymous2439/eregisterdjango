@@ -1,10 +1,11 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.utils import timezone
 
+from accounts.decorators import authenticate_user
 from accounts.models import User
 from events.models import Event, EventType
 
@@ -44,6 +45,8 @@ class AddEvent(View):
 class Attendance(View):
     name = 'events/attendance.html'
 
+    @method_decorator(login_required)
+    @method_decorator(authenticate_user)
     def get(self, request, code):
         user = User.objects.get(qr_id=code)
         events = Event.objects.filter(start_date__lt=timezone.now(), end_date__gt=timezone.now(), organizer=request.user)
