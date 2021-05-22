@@ -497,7 +497,7 @@ input[type=button][disabled].default {
     font-weight: 400;
     font-size: 13px;
     text-align: left;
-    background: #79aec8;
+    background: #800000;
     color: #fff;
 }
 
@@ -608,7 +608,7 @@ td ul.errorlist + input, td ul.errorlist + select, td ul.errorlist + textarea {
 /* BREADCRUMBS */
 
 div.breadcrumbs {
-    background: #79aec8;
+    background: #85640460;
     padding: 10px 40px;
     border: none;
     font-size: 14px;
@@ -698,7 +698,7 @@ a.deletelink:focus, a.deletelink:hover {
 }
 
 .object-tools a:focus, .object-tools a:hover {
-    background-color: #417690;
+    background-color: #800000;
 }
 
 .object-tools a:focus{
@@ -813,7 +813,7 @@ table#change-history tbody th {
     justify-content: space-between;
     align-items: center;
     padding: 10px 40px;
-    background: #417690;
+    background: #800000;
     color: #ffc;
     overflow: hidden;
 }

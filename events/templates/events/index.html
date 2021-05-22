@@ -1,10 +1,18 @@
 {% extends 'events/base.html' %}
 
+{% block links %}
+    <style>
+        input{margin-bottom:10px;}
+    </style>
+{% endblock %}
+
 {% block content %}
     <div class="wrapper">
         <h4 class="page-title">EVENTS</h4>
-        <a href="{% url 'events-add' %}" class="btn btn-primary">Add</a>
-        <table class="table">
+        {% if user.role.pk == 1 %}
+        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#add-modal"><i class="fas fa-plus"></i> Add</a>
+        {% endif %}
+        <table class="table stripe">
             <thead>
                 <tr>
                     <th>Event Name</th>
@@ -29,4 +37,43 @@
             </tbody>
         </table>
     </div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="add-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input placeholder="Event Name" name="name" class="form-control">
+                            <input placeholder="Venue" name="venue" class="form-control">
+                            <select name="event-type" class="form-control">
+                                {% for eventType in eventTypes%}
+                                    <option value="{{ eventType.pk }}">{{ eventType.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <label>Start Date and Time:</label><input type="datetime-local" class="form-control" name="start-date">
+                            <label>End Date and Time:</label><input type="datetime-local" class="form-control" name="end-date">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

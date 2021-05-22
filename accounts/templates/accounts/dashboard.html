@@ -1,0 +1,39 @@
+{% extends 'events/base.html' %}
+
+{% block links %}
+<style>
+    canvas{height:auto !important; width:400px !important;}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="wrapper">
+    <h4 class="page-title">Dashboard</h4>
+    <h2>Numbers only</h2>
+    <p>Total Number of events: {{ total_events }}</p>
+    <p>Total Number of participated events: {{ total_participants }}</p>
+    <p>Average Participants per event: </p>
+    <h2>Graphs</h2>
+    <p>Number of Events per year</p>
+    <p>Number of Participants per year</p>
+    <canvas id="myChart"></canvas>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+        }]
+    },
+
+});
+</script>
+{% endblock %}

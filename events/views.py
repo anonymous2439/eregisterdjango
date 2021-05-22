@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -7,7 +8,7 @@ from django.utils import timezone
 
 from accounts.decorators import authenticate_user
 from accounts.models import User
-from events.models import Event, EventType
+from events.models import Event, EventType, EventParticipant
 
 
 class Home(View):
@@ -17,15 +18,6 @@ class Home(View):
     def get(self, request):
         context = {
             'events': Event.objects.all(),
-        }
-        return render(request, self.name, context)
-
-
-class AddEvent(View):
-    name = 'events/add.html'
-
-    def get(self, request):
-        context = {
             'eventTypes': EventType.objects.all(),
         }
         return render(request, self.name, context)
@@ -50,8 +42,21 @@ class Attendance(View):
     def get(self, request, code):
         user = User.objects.get(qr_id=code)
         events = Event.objects.filter(start_date__lt=timezone.now(), end_date__gt=timezone.now(), organizer=request.user)
+        for event in events:
+            if len(EventParticipant.objects.filter(event=event, user=user)) == 0:
+                EventParticipant(event=event, user=user).save()
+                messages.success(request, 'You joined the event!')
+            else:
+                messages.warning(request, 'This user has already participated this event!')
         context = {
             'events': events,
             'user': user,
         }
         return render(request, self.name, context)
+
+    def post(self, request):
+        if request.is_ajax():
+            event_id = request.POST.get('event-id')
+            user_id = request.POST.get('user-id')
+            print(f'{event_id} - {user_id}')
+        return redirect('events-home')

@@ -11,3 +11,7 @@ urlpatterns = [
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.site.site_header = "E-Register Admin"
+admin.site.site_title = "E-Register Admin Portal"
+admin.site.index_title = "Welcome to E-Register Portal"

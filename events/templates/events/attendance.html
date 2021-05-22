@@ -1,35 +1,26 @@
 {% extends 'events/base.html' %}
 
+{% block links %}
+    <style>
+        #running-event p span{font-weight:700;}
+    </style>
+{% endblock %}
 
 {% block content %}
     <div class="wrapper">
         <div id="participant"><b>Participant:</b> {{ user.first_name }} {{ user.middle_name }} {{ user.last_name }}</div>
-        <h4 class="page-title">RUNNING EVENTS</h4>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Event Name</th>
-                    <th>Venue</th>
-                    <th>Organizer</th>
-                    <th>Event Type</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
+        <h4 class="page-title">RUNNING EVENT</h4>
+
             {% for event in events %}
-                <tr>
-                    <td>{{ event.name }}</td>
-                    <td>{{ event.venue }}</td>
-                    <td>{{ event.organizer }}</td>
-                    <td>{{ event.event_type }}</td>
-                    <td>{{ event.start_date }}</td>
-                    <td>{{ event.end_date }}</td>
-                    <td><button class="btn btn-primary">Join</button></td>
-                </tr>
+                <div id="running-event">
+                    <p><span>Event: </span>{{ event.name }}</p>
+                    <p><span>Venue: </span>{{ event.venue }}</p>
+                    <p><span>Organizer: </span>{{ event.organizer }}</p>
+                    <p><span>Type of Event: </span>{{ event.event_type }}</p>
+                    <p><span>Start Date: </span>{{ event.start_date }}</p>
+                    <p><span>End Date: </span>{{ event.end_date }}</p>
+                </div>
             {% endfor %}
-            </tbody>
         </table>
     </div>
 {% endblock %}

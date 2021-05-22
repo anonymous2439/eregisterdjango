@@ -12,8 +12,9 @@ from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views import View
 
+from accounts.decorators import authenticate_user
 from accounts.models import User, UserRole
-from events.models import Link
+from events.models import Link, Event, EventParticipant
 
 
 class Profile(View):
@@ -42,9 +43,11 @@ class Login(View):
             login(request, user)
             messages.success(request, f'Welcome {user.email}')
             if request.GET.get('next'):
-                print(request.GET.get('next'))
+                if request.user.role.pk == 1:
+                    return redirect('accounts-dashboard')
                 return redirect(request.GET.get('next'))
-            print('home')
+            elif request.user.role.pk == 1:
+                return redirect('accounts-dashboard')
             return redirect('events-home')
         else:
             messages.error(request, 'Invalid Username/Password')
@@ -96,6 +99,21 @@ class ManageAccounts(View):
             canvas.close()
             user.save()
             return redirect('accounts-manage')
+
+
+class Dashboard(View):
+    name = 'accounts/dashboard.html'
+
+    @method_decorator(login_required)
+    @method_decorator(authenticate_user)
+    def get(self, request):
+        total_events = len(Event.objects.all())
+        total_participants = len(EventParticipant.objects.all())
+        context = {
+            'total_events': total_events,
+            'total_participants': total_participants,
+        }
+        return render(request, self.name, context)
 
 
 def logout(request):
