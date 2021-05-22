@@ -40,17 +40,17 @@ class Attendance(View):
     @method_decorator(login_required)
     @method_decorator(authenticate_user)
     def get(self, request, code):
-        user = User.objects.get(qr_id=code)
+        participant = User.objects.get(qr_id=code)
         events = Event.objects.filter(start_date__lt=timezone.now(), end_date__gt=timezone.now(), organizer=request.user)
         for event in events:
-            if len(EventParticipant.objects.filter(event=event, user=user)) == 0:
-                EventParticipant(event=event, user=user).save()
+            if len(EventParticipant.objects.filter(event=event, user=participant)) == 0:
+                EventParticipant(event=event, user=participant).save()
                 messages.success(request, 'You joined the event!')
             else:
                 messages.warning(request, 'This user has already participated this event!')
         context = {
             'events': events,
-            'user': user,
+            'participant': participant,
         }
         return render(request, self.name, context)
 
