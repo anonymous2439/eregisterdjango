@@ -3,6 +3,7 @@
 {% block content %}
 <div class="wrapper">
     <h4 class="page-title">Profile</h4>
+    <div class="breadcrumbs"> {% if user.role.pk == 1 %}<a href="{% url 'accounts-dashboard' %}">{% else %}<a href="{% url 'events-home' %}">{% endif %}Home</a> / Profile</div>
     <div id="profile-boxes">
         {% if user.role.pk != 1 %}
     <section>

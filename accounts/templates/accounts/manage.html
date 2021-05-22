@@ -3,6 +3,7 @@
 {% block content %}
 <div class="wrapper">
     <h4 class="page-title">Manage Accounts</h4>
+    <div class="breadcrumbs"> {% if user.role.pk == 1 %}<a href="{% url 'accounts-dashboard' %}">{% else %}<a href="{% url 'events-home' %}">{% endif %}Home</a> / Manage Accounts</div>
 <div>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-modal">Add</button>
 </div>
@@ -20,7 +21,7 @@
         {% for user in users %}
         <tr>
             <td>{{ user.pk }}</td>
-            <td>{{ user.email }}</td>
+            <td><a href="{% url 'accounts-other-profile' user.pk %}">{{ user.email }}</a></td>
             <td>{{ user.role }}</td>
             <td><a href="#">Edit</a> | <a href="#" onclick="deleteUser({{ user.pk }});">Delete</a></td>
         </tr>

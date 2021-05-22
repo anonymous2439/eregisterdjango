@@ -29,6 +29,18 @@ class Profile(View):
         return render(request, self.name, context)
 
 
+class OtherProfile(View):
+    name = 'accounts/other_profile.html'
+
+    @method_decorator(login_required)
+    def get(self, request, user_id):
+        other_user = User.objects.get(pk=user_id)
+        context = {
+            'other_user': other_user,
+        }
+        return render(request, self.name, context)
+
+
 class Login(View):
     name = 'accounts/login.html'
 

@@ -1,0 +1,22 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+<div class="wrapper">
+    <h4 class="page-title">Profile</h4>
+    <div class="breadcrumbs"> <a href="{% url 'accounts-dashboard' %}">Home</a> / <a href="{% url 'accounts-manage' %}">Manage Accounts</a> / {{ other_user.email }}</div>
+    <div id="profile-boxes">
+        {% if user.role.pk != 1 %}
+    <section>
+        <img src="/media/{{ user.qr_code }}">
+    </section>
+        {% endif %}
+    <section>
+        <p>
+            <b>Name:</b> {{ other_user.first_name }} {{ other_user.middle_name }} {{ other_user.last_name }}<br>
+            <b>Contact Number:</b> {{ other_user.contact_no }}<br>
+            <b>E-mail:</b> {{ other_user.email }}<br>
+        </p>
+    </section>
+    </div>
+</div>
+{% endblock %}
