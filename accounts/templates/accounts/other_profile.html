@@ -5,9 +5,9 @@
     <h4 class="page-title">Profile</h4>
     <div class="breadcrumbs"> <a href="{% url 'accounts-dashboard' %}">Home</a> / <a href="{% url 'accounts-manage' %}">Manage Accounts</a> / {{ other_user.email }}</div>
     <div id="profile-boxes">
-        {% if user.role.pk != 1 %}
+        {% if other_user.role.pk != 1 %}
     <section>
-        <img src="/media/{{ user.qr_code }}">
+        <img src="/media/{{ other_user.qr_code }}">
     </section>
         {% endif %}
     <section>
