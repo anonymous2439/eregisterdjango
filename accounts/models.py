@@ -29,16 +29,16 @@ class UserManager(BaseUserManager):
         user.is_staff = True
         user.is_superuser = True
         user.role = UserRole.objects.get(pk=1)
-        qrcode_img = qrcode.make(f'{hashlib.md5(str(email).encode("utf-8")).hexdigest()}')
-        user.qr_id = hashlib.md5(str(email).encode("utf-8")).hexdigest()
-        canvas = Image.new('RGB', (qrcode_img.pixel_size, qrcode_img.pixel_size), 'white')
-        draw = ImageDraw.Draw(canvas)
-        canvas.paste(qrcode_img)
-        file_name = f'{hashlib.md5(str(email).encode("utf-8")).hexdigest()}.png'
-        buffer = BytesIO()
-        canvas.save(buffer, 'PNG')
-        user.qr_code.save(file_name, File(buffer), save=False)
-        canvas.close()
+        # qrcode_img = qrcode.make(f'{hashlib.md5(str(email).encode("utf-8")).hexdigest()}')
+        # user.qr_id = hashlib.md5(str(email).encode("utf-8")).hexdigest()
+        # canvas = Image.new('RGB', (qrcode_img.pixel_size, qrcode_img.pixel_size), 'white')
+        # draw = ImageDraw.Draw(canvas)
+        # canvas.paste(qrcode_img)
+        # file_name = f'{hashlib.md5(str(email).encode("utf-8")).hexdigest()}.png'
+        # buffer = BytesIO()
+        # canvas.save(buffer, 'PNG')
+        # user.qr_code.save(file_name, File(buffer), save=False)
+        # canvas.close()
         user.save(using=self._db)
         print('saved from create superuser')
         return user
