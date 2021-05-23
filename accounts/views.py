@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.core.files import File
+from django.db.models import Count
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
@@ -121,9 +122,14 @@ class Dashboard(View):
     def get(self, request):
         total_events = len(Event.objects.all())
         total_participants = len(EventParticipant.objects.all())
+        events_per_year = Event.objects.values('start_date__year').annotate(count=Count('pk'))
+        participants_per_year = EventParticipant.objects.values('date_created').annotate(count=Count('pk'))
+        print(events_per_year)
         context = {
             'total_events': total_events,
             'total_participants': total_participants,
+            'events_per_year': events_per_year,
+            'participants_per_year': participants_per_year,
         }
         return render(request, self.name, context)
 

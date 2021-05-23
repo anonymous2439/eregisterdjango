@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-register</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/fontawesome/fontawesome.min.css' %}">
@@ -16,17 +17,18 @@
         @import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-        body{font-family:'Mulish';}
+        body{font-family:'Mulish';overflow-x:hidden;}
+        table{width:100% !important;}
         .table, .dataTables_wrapper{margin-top:16px; !important}
         h4.page-title{font-family:'Montserrat';}
-        header{background-color: #fff;height:60px;border-bottom: 5px solid #800000;margin-top:15px;}
+        header{background-color: #fff;height:60px;border-bottom: 5px solid #800000;margin-top:15px;padding: 0 10px;}
         header #header-left a{
             color:white;display:block;font-weight:700;
         }
         header a:hover{color:white;text-decoration:none;}
         header nav a:hover, header nav a:active{text-decoration:underline;}
         .wrapper{
-            width:1000px;
+            max-width:1000px;
             margin:auto;height:100%;
         }
         #header-left{display:inline-block;height:100%;width: 120px;text-align: center;line-height: 60px;background: #800000;font-family:'Montserrat';}
@@ -52,6 +54,14 @@
         #profile-boxes section{flex:1;}
         #profile-boxes section:last-child{padding-top:45px;}
 
+        @media screen and (max-width: 1000px){
+            #graphs{flex-direction:column;}
+
+        }
+        @media screen and (max-width: 800px){
+            #data-counts{flex-direction:column;}
+            #data-counts section{margin-bottom:10px !important;}
+        }
     </style>
     {% block links %} {% endblock %}
 </head>
@@ -101,7 +111,14 @@
 
     <script>
         $(document).ready( function () {
-            $(".table").DataTable();
+            $("#tbl-event.table").DataTable({
+                "scrollX": true,
+            });
+        } );
+        $(document).ready( function () {
+            $("#tbl-accounts.table").DataTable({
+                "scrollX": true,
+            });
         } );
     </script>
     {% block scripts %} {% endblock %}

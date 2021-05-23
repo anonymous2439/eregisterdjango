@@ -2,38 +2,92 @@
 
 {% block links %}
 <style>
-    canvas{height:auto !important; width:400px !important;}
+    #graphs{margin-top:25px;}
+    #graphs canvas{height:auto !important; width:100% !important;}
+    .dashboard-wrapper{width:100%;padding: 0px 40px;}
+    #data-counts{display:flex;}
+    #data-counts section{flex:1;text-align:center;background-color: #c4c4c420;border: 1px solid #c4c4c430;margin: 0 10px;}
+    #data-counts section h4{font-weight:700;color:#808080;}
+    #data-counts section h2{color:#D4AF37;}
+    #graphs{display:flex;}
+    #graphs section{flex:1;margin:0 10px;}
+    #graphs section p{text-transform:uppercase;font-weight:700;font-size:20px;color:#808080;}
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="wrapper">
+<div class="dashboard-wrapper">
     <h4 class="page-title">Dashboard</h4>
-    <h2>Numbers only</h2>
-    <p>Total Number of events: {{ total_events }}</p>
-    <p>Total Number of participated events: {{ total_participants }}</p>
-    <p>Average Participants per event: </p>
-    <h2>Graphs</h2>
-    <p>Number of Events per year</p>
-    <p>Number of Participants per year</p>
-    <canvas id="myChart"></canvas>
-
+    <div id="data-counts">
+        <section>
+            <h4>TOTAL EVENTS</h4>
+            <h2>{{ total_events }}</h2>
+        </section>
+        <section>
+            <h4>TOTAL PARTICIPANTS</h4>
+            <h2>{{ total_participants }}</h2>
+        </section>
+        <section>
+            <h4>AVERAGE PARTICPANTS</h4>
+        </section>
+    </div>
+    <div id="graphs">
+        <section id="graph-left">
+            <p>Number of Events per year</p>
+            <canvas id="events_per_year"></canvas>
+        </section>
+        <section id="graph-right">
+            <p>Number of Participants per year</p>
+            <canvas id="participants_per_year"></canvas>
+        </section>
+    </div>
 </div>
 {% endblock %}
 
 {% block scripts %}
 <script>
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
+var epy = document.getElementById('events_per_year').getContext('2d');
+var epyChart = new Chart(epy, {
     type: 'line',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: [
+            {% for event in events_per_year %}
+                '{{ event.start_date__year }}',
+            {% endfor %}
+        ],
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            label: 'Events per Year',
+            data: [
+                {% for event in events_per_year %}
+                    '{{ event.count }}',
+                {% endfor %}
+            ],
+            borderColor: "#D4AF37",
+            backgroundColor: "#D4AF37",
         }]
     },
+});
 
+var ppy = document.getElementById('participants_per_year').getContext('2d');
+var ppyChart = new Chart(ppy, {
+    type: 'bar',
+    data: {
+        labels: [
+            {% for event in participants_per_year %}
+                '{{ event.date_created__year }}',
+            {% endfor %}
+        ],
+        datasets: [{
+            label: 'Events per Year',
+            data: [
+                {% for event in participants_per_year %}
+                    '{{ event.count }}',
+                {% endfor %}
+            ],
+            borderColor: "#D4AF37",
+            backgroundColor: "#D4AF37",
+        }]
+    },
 });
 </script>
 {% endblock %}
